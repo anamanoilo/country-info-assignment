@@ -1,25 +1,65 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { ref, watch } from 'vue';
+import { getPost } from './api.js';
 
-const router = useRouter()
-const route = useRoute()
+import { onBeforeRouteUpdate } from 'vue-router';
 
-const search = computed({
-  get() {
-    return route.query.search ?? ''
-  },
-  set(search) {
-    router.replace({ query: { search } })
+onBeforeRouteUpdate(async (to, from) => {
+  // react to route changes...
+  // userData.value = await fetchUser(to.params.id);
+});
+
+import { inject } from 'vue';
+
+const axios = inject('axios');
+
+const router = useRouter();
+const route = useRoute();
+
+const loading = ref(false);
+const country = ref(null);
+const error = ref(null);
+
+// watch the params of the route to fetch the data again
+watch(() => route.params.countryCode, fetchData, { immediate: true });
+
+async function fetchData(countryCode) {
+  error.value = country.value = null;
+  loading.value = true;
+
+  try {
+    country.value = await fetchCountryInfo(countryCode);
+  } catch (err) {
+    error.value = err.toString();
+  } finally {
+    loading.value = false;
   }
-})
+}
 
-console.log('HELLO');
+async function fetchCountryInfo(countryCode: string) {
+  const response = await axios.get(`/CountryInfo/${countryCode}`);
+  return response.data;
+}
+
+async function mounted() {
+  await this.fetchCountryInfo();
+}
 </script>
 
 <template>
   <h2>CountryView</h2>
-  User {{ $route.params.countryCode }}
+  <div class="country">
+    <div v-if="loading" class="loading">Loading...</div>
 
-  <label> Search: <input v-model.trim="search" maxlength="20" /> </label>
+    <div v-if="error" style="background-color: red" class="error">
+      {{ error }}
+    </div>
+
+    <div v-if="country" class="content">
+      <h3>{{ country.commonName }}</h3>
+      <p>{{ country.officialName }}</p>
+    </div>
+  </div>
 </template>

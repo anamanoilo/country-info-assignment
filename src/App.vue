@@ -9,7 +9,7 @@
     <RouterLink to="/">Go to Home</RouterLink>
     <RouterLink to="/country/us">Go to US</RouterLink>
   </nav>
-  <main style="background-color: yellowgreen;">
+  <main>
     <RouterView />
   </main>
 </template>

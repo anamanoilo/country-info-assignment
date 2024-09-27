@@ -1,18 +1,18 @@
-<script setup>
-import { computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
-const router = useRouter()
-const route = useRoute()
+const router = useRouter();
+const route = useRoute();
 
 const search = computed({
   get() {
-    return route.query.search ?? ''
+    return route.query.search ?? '';
   },
   set(search) {
-    router.replace({ query: { search } })
-  }
-})
+    router.replace({ query: { search } });
+  },
+});
 
 console.log('HELLO');
 </script>

@@ -1,17 +1,20 @@
-<script setup lang="ts">
-import { ref } from 'vue';
+<script lang="ts">
+import { defineComponent } from 'vue';
 
-defineProps<{ msg: string }>();
-
-const count = ref(0);
+export default defineComponent({
+  name: 'HelloWorld',
+  props: ['inputText'],
+  computed: {
+    countTest(): number {
+      return this.inputText.length;
+    },
+  },
+});
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
+  <h1>Hello World</h1>
 
-  <div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
-  </div>
 </template>
 
 <style scoped>

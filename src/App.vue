@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue';
 </script>
 
 <template>
@@ -8,9 +7,9 @@ import HelloWorld from './components/HelloWorld.vue';
   </p>
   <nav>
     <RouterLink to="/">Go to Home</RouterLink>
-    <RouterLink to="/country/hu">Go to Country HU</RouterLink>
+    <RouterLink to="/about">Go to About</RouterLink>
   </nav>
-  <main style="background-color: yellow;">
+  <main>
     <RouterView />
   </main>
 </template>

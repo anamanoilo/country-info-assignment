@@ -7,13 +7,18 @@ export interface CountryInfo {
 }
 
 export interface Holiday {
-  date?: 'string';
-  localName: 'string';
-  name: 'string';
-  countryCode: 'string';
+  date?: string;
+  localName: string;
+  name: string;
+  countryCode: string;
   fixed?: boolean; // deprecated: true
   global?: boolean;
   counties?: null;
   launchYear?: null;
   types: ['Public' | 'Private'];
+}
+
+export interface Country {
+  countryCode: string;
+  name: string;
 }

@@ -1,20 +1,15 @@
 <script setup lang="ts">
-import { PropType } from 'vue';
+// import { PropType } from 'vue';
+// import { Country } from '../services/api.dto';
+const { filteredCountries } = defineProps(['filteredCountries']);
 
-  
-interface Country {
-  name: string;
-  countryCode: string;
-}
-
-
-const props = defineProps({
-  filteredCountries: {
-    type: Array as PropType<Country[]>,
-    required: true
-  }
-});
-const { filteredCountries } = props;
+// const props = defineProps({
+//   filteredCountries: {
+//     type: Array as PropType<Country[]>,
+//     required: true
+//   }
+// });
+// const { filteredCountries } = props;
 
 
 </script>

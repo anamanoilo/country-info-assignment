@@ -14,5 +14,5 @@ export default defineComponent({
 
 <template>
   <h2>HomeView</h2>
-  <button @click="goToCountryHU">Go to Countries</button>
+  <button @click="goToCountryHU">Go to Country HU</button>
 </template>

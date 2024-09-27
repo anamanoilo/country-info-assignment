@@ -7,9 +7,9 @@
   </p>
   <nav>
     <RouterLink to="/">Go to Home</RouterLink>
-    <RouterLink to="/about">Go to About</RouterLink>
+    <RouterLink to="/country/us">Go to US</RouterLink>
   </nav>
-  <main>
+  <main style="background-color: yellowgreen;">
     <RouterView />
   </main>
 </template>

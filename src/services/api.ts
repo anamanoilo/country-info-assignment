@@ -1,6 +1,6 @@
-import { inject } from 'vue';
+// import { inject } from 'vue';
 
-const axios = inject('axios');
+// const axios = inject('axios');
 
 // import type { AxiosInstance } from 'axios';
 

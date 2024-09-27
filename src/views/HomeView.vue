@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import CountryList from '../components/CountryList.vue';
+import SearchInput from '../components/SearchInput.vue';
+import RandomCountryWidget from '../components/RandomCountryWidget.vue';
+
 
 // const countries = [{
 // "countryCode": "AD",
@@ -49,7 +53,21 @@
 </script>
 
 <template>
-  <div class="w-full px-4 mx-auto sm:w-[450px] md:w-[748px] lg:w-[1250px] border-2 border-green-500"><h2>HomeView</h2></div>
+    <div class="container px-4 mx-auto border-2 border-red-500">
+      <h2>HomeView</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 ">
+        <div class="lg:col-span-2 lg:order-1 order-2 border-2 border-orange-500">
+          <SearchInput/>
+          <CountryList/>
+        </div>
+        <div class="lg:col-span-3 lg:order-2 order-1 border-2 border-green-500">
+          <RandomCountryWidget/>
+        </div>
+        
+      </div>
+      
+      
+    </div>
   
   <!-- <button @click="goToAbout">Go to About</button> -->
 </template>

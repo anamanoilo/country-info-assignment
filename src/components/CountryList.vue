@@ -8,20 +8,13 @@ interface Country {
 }
 
 
-  const searchQuery = ref('');
   const countries = ref<Country[]>([]);
 
 
 </script>
 
 <template>
-  <div>
-      <input
-      type="text"
-        v-model="searchQuery"
-        class="border p-2 rounded w-full"
-        placeholder="Search for a country..."
-      />
+  <div >
   <h3>Countries List</h3>
   <ul v-if="countries.length" class="mt-4">
      <li

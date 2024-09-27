@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { PropType } from 'vue';
 
   
 interface Country {
@@ -8,7 +8,13 @@ interface Country {
 }
 
 
-  const countries = ref<Country[]>([]);
+const props = defineProps({
+  filteredCountries: {
+    type: Array as PropType<Country[]>,
+    required: true
+  }
+});
+const { filteredCountries } = props;
 
 
 </script>
@@ -16,9 +22,9 @@ interface Country {
 <template>
   <div >
   <h3>Countries List</h3>
-  <ul v-if="countries.length" class="mt-4">
+  <ul v-if="filteredCountries.length" class="mt-4">
      <li
-          v-for="country in countries"
+          v-for="country in filteredCountries"
           :key="country.countryCode"
           class="cursor-pointer hover:underline"
         >

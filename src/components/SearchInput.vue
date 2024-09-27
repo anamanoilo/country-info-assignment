@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-const searchQuery = ref('');
+const modelValue = defineModel<string>('modelValue');
 
 </script>
 
 <template>
-<input
+      <div class="mb-4">
+    <input
       type="text"
-        v-model="searchQuery"
-        class="border p-2 rounded w-full"
-        placeholder="Search for a country..."
-      />
+      v-model="modelValue"
+      placeholder="Search for a country..."
+      class="w-full p-2 border-2 border-gray-300 rounded-md"
+    />
+  </div>
 </template>

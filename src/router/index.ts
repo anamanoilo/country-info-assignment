@@ -1,17 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../views/Home.vue';
-import Country from '../views/Country.vue';
+import HomeView from '../views/HomeView.vue';
+import CountryView from '../views/CountryView.vue';
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home,
+    component: HomeView,
   },
   {
     path: '/country/:countryCode',
     name: 'country',
-    component: Country,
+    component: CountryView,
   },
 ];
 

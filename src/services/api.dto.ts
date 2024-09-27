@@ -17,3 +17,8 @@ export interface Holiday {
   launchYear?: null;
   types: ['Public' | 'Private'];
 }
+
+export interface Country {
+  countryCode: 'string';
+  name: 'string';
+}

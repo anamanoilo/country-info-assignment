@@ -5,3 +5,15 @@ export interface CountryInfo {
   region: string;
   borders: CountryInfo[] | null;
 }
+
+export interface Holiday {
+  date?: 'string';
+  localName: 'string';
+  name: 'string';
+  countryCode: 'string';
+  fixed?: boolean; // deprecated: true
+  global?: boolean;
+  counties?: null;
+  launchYear?: null;
+  types: ['Public' | 'Private'];
+}

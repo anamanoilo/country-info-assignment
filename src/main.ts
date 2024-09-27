@@ -7,6 +7,6 @@ import axios from './plugins/axios';
 const app = createApp(App);
 app.use(router);
 app.use(axios, {
-  baseUrl: import.meta.env.VITE_API_URL,
+  baseUrl: `${import.meta.env.VITE_API_URL}/api/v3`,
 });
 app.mount('#app');

@@ -1,29 +1,23 @@
 <script setup lang="ts">
-import router from '../router';
 
 const { randomCountries } = defineProps(['randomCountries']);
 
-// Navigate to country page
-    function navigateToCountry (countryCode: string)  {
-      router.push({ name: 'country', params: { countryCode: countryCode.toLowerCase() } });
-};
-    
 </script>
 
 <template>
   <div>
     <h4>Random Country Widget</h4>
-    <ul>
+    <ul class="grid gap-2">
       <li
         v-for="country in randomCountries"
         :key="country.countryCode"
-        class="p-3 cursor-pointer hover:underline"
+        class="p-2 border-2 border-gray-400"
       >
-        <a @click="navigateToCountry(country.countryCode)"
+        <RouterLink :to="`/country/${country.countryCode.toLowerCase()}`" class="hover:underline"
           ><p>Name: {{ country.name }}</p
           ><p>Next Holiday: {{ country.holidayName }}</p
           ><p>Date: {{ country.holidayDate }}</p
-          ></a
+          ></RouterLink
         >
       </li>
     </ul>

@@ -3,11 +3,10 @@ import { ref, computed, inject, onMounted } from 'vue';
 import CountryList from '../components/CountryList.vue';
 import SearchInput from '../components/SearchInput.vue';
 import RandomCountryWidget from '../components/RandomCountryWidget.vue';
-import {axiosKey, Country } from '../types/types';
+import {axiosKey, Country } from '../types';
 import type { AxiosInstance } from 'axios';
 
-const axios = inject('axios') as AxiosInstance;
-// const axios = inject(axiosKey);
+const axios = inject(axiosKey) as AxiosInstance;
 
 
 const loading = ref(false);
@@ -81,7 +80,7 @@ async function fetchCountries(): Promise<Country[]> {
         <SearchInput v-model="searchQuery" />
         <CountryList :filteredCountries="filteredCountries" />
       </div>
-      <div class="lg:col-span-3 lg:order-2 order-1 p-2 border-2 border-gray-400">
+      <div class="lg:col-span-3 lg:order-2 order-1 h-fit p-2 border-2 border-gray-400">
         <RandomCountryWidget :randomCountries="randomCountries" />
       </div>
     </div>

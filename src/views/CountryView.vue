@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { ref, watch, inject } from 'vue';
-import {axiosKey, CountryInfo, Holiday } from '../types/types';
+import {axiosKey, CountryInfo, Holiday } from '../types';
 import type { AxiosInstance } from 'axios';
 
 const axios = inject(axiosKey) as AxiosInstance;

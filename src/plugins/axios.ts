@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type { App } from 'vue';
 import type { AxiosInstance } from 'axios';
-import { axiosKey } from '../services/api.dto';
+import { axiosKey } from '../types';
 
 interface AxiosOptions {
   baseUrl?: string;

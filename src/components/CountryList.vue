@@ -1,29 +1,23 @@
 <script setup lang="ts">
-import router from '../router';
-import { Country } from '../types/types';
+import { Country } from '../types';
 
 defineProps<{
   filteredCountries: Country[]
 }>()
 
 
-// Navigate to country page
-    function navigateToCountry (countryCode: string)  {
-      router.push({ name: 'country', params: { countryCode: countryCode.toLowerCase() } });
-    };
-
 </script>
 
 <template>
   <div>
   <h3>Countries List</h3>
-  <ul v-if="filteredCountries.length" class="mt-4">
+  <ul v-if="filteredCountries.length" class="mt-4 grid gap-2">
      <li
           v-for="country in filteredCountries"
           :key="country.countryCode"
-          class="p-3 cursor-pointer hover:underline"
+          class="p-2 border-2 border-gray-400"
         >
-        <a @click="navigateToCountry(country.countryCode)">{{ country.name }}</a>
+        <RouterLink :to="`/country/${country.countryCode.toLowerCase()}`" class="block hover:underline">{{ country.name }}</RouterLink>
           
         </li>
   </ul>

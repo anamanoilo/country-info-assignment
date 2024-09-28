@@ -1,3 +1,6 @@
+import type { AxiosInstance } from 'axios';
+import type { InjectionKey } from 'vue';
+
 export interface CountryInfo {
   commonName: string;
   officialName: string;
@@ -22,3 +25,5 @@ export interface Country {
   countryCode: string;
   name: string;
 }
+
+export const axiosKey = Symbol() as InjectionKey<AxiosInstance>;

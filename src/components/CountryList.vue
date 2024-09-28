@@ -9,7 +9,7 @@ defineProps<{
 
 <template>
   <div>
-  <h3>Countries List</h3>
+  <h3 class="font-semibold">Countries List</h3>
   <ul v-if="filteredCountries.length" class="mt-4 grid gap-2">
      <li
           v-for="country in filteredCountries"

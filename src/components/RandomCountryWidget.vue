@@ -10,8 +10,8 @@ defineProps<{
 
 <template>
   <div>
-    <h4>Random Country Widget</h4>
-    <ul class="grid gap-2">
+    <h3 class="font-semibold">Random Country Widget</h3>
+    <ul class="grid gap-2 mt-4">
       <li
         v-for="country in randomCountries"
         :key="country.countryCode"

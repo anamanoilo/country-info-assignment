@@ -51,23 +51,24 @@ async function fetchHolidays(year:number, countryCode: string): Promise<Holiday[
 </script>
 
 <template>
-  <h2>CountryView</h2>
-  <div class="country">
+  <div >
     <div v-if="loading" class="loading">Loading...</div>
 
     <div v-if="error" style="background-color: red" class="error">
       {{ error }}
     </div>
 
-    <div v-if="country" class="content">
-      <h3>{{ country.commonName }}</h3>
+    <div v-if="country">
+      <h3 class="font-semibold">{{ country.commonName }}</h3>
       <p>{{ country.officialName }}</p>
 
-      <div v-for="holiday in holidays">
-        {{ holiday.name }}
-        {{ holiday.date }}
+      <ul class="mt-4 grid gap-2 ">
+        <li v-for="holiday in holidays" class="p-2 border-2 border-gray-400">
+        <p>Holiday: {{ holiday.name }}</p>
+        <p>Date: {{ holiday.date }}</p>
         <div v-for="type in holiday.types">§{{ type }}</div>
-      </div>
+        </li>
+      </ul>
     </div>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import router from '../router';
-import { Country } from '../services/api.dto';
+import { Country } from '../types/types';
 
 defineProps<{
   filteredCountries: Country[]

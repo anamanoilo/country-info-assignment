@@ -2,14 +2,14 @@
 </script>
 
 <template>
-  <!-- <p>
-    <strong>Current route path:</strong> {{ $route.fullPath }}
-  </p> -->
-  <nav>
+  <div class="container p-4 mx-auto">
+    <nav>
     <strong><RouterLink to="/">Go to Home</RouterLink></strong>
   </nav>
   <main>
     <RouterView />
   </main>
+  </div>
+  
 </template>
 

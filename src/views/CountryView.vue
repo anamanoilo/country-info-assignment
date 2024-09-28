@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { ref, watch, inject } from 'vue';
-import { CountryInfo, Holiday } from '../services/api.dto';
+import { CountryInfo, Holiday } from '../types/types';
 
 const axios = inject('axios');
 

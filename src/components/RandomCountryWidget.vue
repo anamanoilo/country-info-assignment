@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import { CountryWidget } from '../types';
 
-const { randomCountries } = defineProps(['randomCountries']);
+
+defineProps<{
+  randomCountries: CountryWidget[]
+}>()
 
 </script>
 
@@ -13,11 +17,12 @@ const { randomCountries } = defineProps(['randomCountries']);
         :key="country.countryCode"
         class="p-2 border-2 border-gray-400"
       >
-        <RouterLink :to="`/country/${country.countryCode.toLowerCase()}`" class="hover:underline"
+        <RouterLink :to="`/country/${country.countryCode.toLowerCase()}`" class="block hover:underline"
           ><p>Name: {{ country.name }}</p
           ><p>Next Holiday: {{ country.holidayName }}</p
           ><p>Date: {{ country.holidayDate }}</p
-          ></RouterLink
+          >
+          </RouterLink
         >
       </li>
     </ul>

@@ -2,6 +2,7 @@
 import { useRoute } from 'vue-router';
 import { ref, watch, inject } from 'vue';
 import {axiosKey, CountryInfo, Holiday } from '../types';
+import { AxiosError } from 'axios';
 import type { AxiosInstance } from 'axios';
 
 const axios = inject(axiosKey) as AxiosInstance;
@@ -9,15 +10,16 @@ const axios = inject(axiosKey) as AxiosInstance;
 const route = useRoute();
 
 const loading = ref(false);
-const country = ref(null);
-const error = ref(null);
-const holidays = ref(null);
+const country = ref<CountryInfo | null>(null);
+const error = ref<null | string>(null);
+const holidays = ref<Holiday[]>([]);
 
 // watch the params of the route to fetch the data again
-watch(() => route.params.countryCode, fetchData, { immediate: true });
+watch(() => route.params.countryCode as string, fetchData, { immediate: true });
 
-async function fetchData(countryCode) {
-  error.value = country.value = holidays.value = null;
+async function fetchData(countryCode: string) {
+  error.value = country.value = null;
+  holidays.value = [];
   loading.value = true;
 
   const defaultYear = new Date().getFullYear();
@@ -26,7 +28,12 @@ async function fetchData(countryCode) {
     country.value = await fetchCountryInfo(countryCode);
     holidays.value = await fetchHolidays(defaultYear, countryCode);
   } catch (err) {
-    error.value = err.toString();
+    if (err instanceof AxiosError) {
+      console.error(err.message);
+      error.value = err.message.toString();
+    } else {
+      console.error('Unknown error:', err);
+    }
   } finally {
     loading.value = false;
   }
@@ -37,7 +44,7 @@ async function fetchCountryInfo(countryCode: string): Promise<CountryInfo> {
   return response.data;
 }
 
-async function fetchHolidays(year, countryCode): Holiday[] {
+async function fetchHolidays(year:number, countryCode: string): Promise<Holiday[]> {
   const response = await axios.get(`/PublicHolidays/${year}/${countryCode}`);
   return response.data;
 }

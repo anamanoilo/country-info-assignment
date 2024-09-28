@@ -5,7 +5,6 @@ defineProps<{
   filteredCountries: Country[]
 }>()
 
-
 </script>
 
 <template>

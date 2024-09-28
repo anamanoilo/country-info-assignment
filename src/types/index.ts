@@ -26,5 +26,11 @@ export interface Country {
   name: string;
 }
 
+export interface CountryWidget {
+  name: string;
+  countryCode: string;
+  holidayName?: string;
+  holidayDate?: string;
+}
 
 export const axiosKey = Symbol() as InjectionKey<AxiosInstance>;

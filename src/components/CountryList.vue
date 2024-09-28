@@ -1,29 +1,30 @@
 <script setup lang="ts">
-// import { PropType } from 'vue';
-// import { Country } from '../services/api.dto';
-const { filteredCountries } = defineProps(['filteredCountries']);
+import router from '../router';
+import { Country } from '../services/api.dto';
 
-// const props = defineProps({
-//   filteredCountries: {
-//     type: Array as PropType<Country[]>,
-//     required: true
-//   }
-// });
-// const { filteredCountries } = props;
+defineProps<{
+  filteredCountries: Country[]
+}>()
 
+
+// Navigate to country page
+    function navigateToCountry (countryCode: string)  {
+      router.push({ name: 'country', params: { countryCode: countryCode.toLowerCase() } });
+    };
 
 </script>
 
 <template>
-  <div >
+  <div>
   <h3>Countries List</h3>
   <ul v-if="filteredCountries.length" class="mt-4">
      <li
           v-for="country in filteredCountries"
           :key="country.countryCode"
-          class="cursor-pointer hover:underline"
+          class="p-3 cursor-pointer hover:underline"
         >
-          {{ country.name }}
+        <a @click="navigateToCountry(country.countryCode)">{{ country.name }}</a>
+          
         </li>
   </ul>
 </div>

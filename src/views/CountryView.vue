@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router';
-import { ref, watch, inject, computed } from 'vue';
+import { useRoute } from 'vue-router';
+import { ref, watch, inject } from 'vue';
 import { CountryInfo, Holiday } from '../services/api.dto';
 
 const axios = inject('axios');
 
-const router = useRouter();
 const route = useRoute();
 
 const loading = ref(false);
@@ -43,7 +42,7 @@ async function fetchData(countryCode) {
   }
 }
 
-async function fetchCountryInfo(countryCode: string): CountryInfo {
+async function fetchCountryInfo(countryCode: string): Promise<CountryInfo> {
   const response = await axios.get(`/CountryInfo/${countryCode}`);
   return response.data;
 }
@@ -61,9 +60,9 @@ async function fetchHolidays(year, countryCode): Holiday[] {
   return response.data;
 }
 
-async function mounted() {
-  await this.fetchCountryInfo();
-}
+// async function mounted() {
+//   await this.fetchCountryInfo();
+// }
 </script>
 
 <template>

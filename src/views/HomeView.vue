@@ -3,9 +3,12 @@ import { ref, computed, inject, onMounted } from 'vue';
 import CountryList from '../components/CountryList.vue';
 import SearchInput from '../components/SearchInput.vue';
 import RandomCountryWidget from '../components/RandomCountryWidget.vue';
-import { Country } from '../types/types';
+import {axiosKey, Country } from '../types/types';
+import type { AxiosInstance } from 'axios';
 
-const axios = inject('axios');
+const axios = inject('axios') as AxiosInstance;
+// const axios = inject(axiosKey);
+
 
 const loading = ref(false);
 const countries = ref<Country[]>([]);

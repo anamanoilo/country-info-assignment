@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
 import { ref, watch, inject } from 'vue';
-import { CountryInfo, Holiday } from '../services/api.dto';
+import { axiosKey, CountryInfo, Holiday } from '../services/api.dto';
 import type { AxiosInstance } from 'axios';
 
-const axios = inject('axios') as AxiosInstance;
+const axios = inject(axiosKey) as AxiosInstance;
 
 const route = useRoute();
 
@@ -38,9 +38,7 @@ async function fetchCountryInfo(countryCode: string): Promise<CountryInfo> {
 }
 
 async function fetchHolidays(year, countryCode): Holiday[] {
-  const response = await axios.get(
-    `/PublicHolidays/${year}/${countryCode}`,
-  );
+  const response = await axios.get(`/PublicHolidays/${year}/${countryCode}`);
   return response.data;
 }
 </script>

@@ -2,12 +2,11 @@
 </script>
 
 <template>
-  <p>
+  <!-- <p>
     <strong>Current route path:</strong> {{ $route.fullPath }}
-  </p>
+  </p> -->
   <nav>
-    <RouterLink to="/">Go to Home</RouterLink>
-    <RouterLink to="/country/us">Go to US</RouterLink>
+    <strong><RouterLink to="/">Go to Home</RouterLink></strong>
   </nav>
   <main>
     <RouterView />

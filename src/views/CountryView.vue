@@ -32,7 +32,7 @@ async function fetchData(countryCode) {
   }
 }
 
-async function fetchCountryInfo(countryCode: string): CountryInfo {
+async function fetchCountryInfo(countryCode: string): Promise<CountryInfo> {
   const response = await axios.get(`/CountryInfo/${countryCode}`);
   return response.data;
 }

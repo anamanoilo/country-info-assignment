@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, inject } from 'vue';
+import { ref, computed, inject, onMounted } from 'vue';
 import CountryList from '../components/CountryList.vue';
 import SearchInput from '../components/SearchInput.vue';
 import RandomCountryWidget from '../components/RandomCountryWidget.vue';
@@ -11,49 +11,55 @@ const axios = inject('axios') as AxiosInstance;
 
 
 const loading = ref(false);
-// const countries = ref<Country[]>([]);
+const countries = ref<Country[]>([]);
 const error = ref(null);
 const searchQuery = ref('');
+const randomCountries = ref([]);
 
-const countries = ref([
-  {
-    countryCode: 'AD',
-    name: 'Andorra',
-  },
-  {
-    countryCode: 'AL',
-    name: 'Albania',
-  },
-  {
-    countryCode: 'AM',
-    name: 'Armenia',
-  },
-  {
-    countryCode: 'AR',
-    name: 'Argentina',
-  },
-  {
-    countryCode: 'AT',
-    name: 'Austria',
-  },
-  {
-    countryCode: 'AU',
-    name: 'Australia',
-  },
-]);
 async function fetchData() {
   error.value = null;
   countries.value = [];
   loading.value = true;
 
+
   try {
     countries.value = await fetchCountries();
+
+    // const randomCountries = <Country[]>[];
+    // for (let i = 0; i < 3; i++){
+    //   const randomCountry = countries.value[Math.floor(Math.random() * countries.value.length)];
+    // randomCountries.push(randomCountry);
+    // }
+    // const countryWidgets = Promise.all(randomCountries.map(country => {}))
+    const randomCountriesResponse = await Promise.all(
+        Array(3)
+          .fill(null)
+          .map(async () => {
+            const randomCountry =
+              countries.value[Math.floor(Math.random() * countries.value.length)];
+            const response = await axios.get(
+              `/NextPublicHolidays/${randomCountry.countryCode}`
+            );
+            const randomCountryHolidays = response.data;
+            return {
+              name: randomCountry.name,
+              holidayName: randomCountryHolidays[0].name,
+              holidayDate: randomCountryHolidays[0].date,
+              countryCode: randomCountry.countryCode,
+            };
+          })
+    );
+      randomCountries.value = randomCountriesResponse
   } catch (err) {
     error.value = err.toString();
   } finally {
     loading.value = false;
   }
 }
+
+onMounted(()=>{fetchData()})
+
+
 
 // Filter countries based on search query
 const filteredCountries = computed(() =>
@@ -62,6 +68,7 @@ const filteredCountries = computed(() =>
   ),
 );
 
+
 async function fetchCountries(): Promise<Country[]> {
   const response = await axios.get(`/AvailableCountries`);
   return response.data;
@@ -69,18 +76,15 @@ async function fetchCountries(): Promise<Country[]> {
 </script>
 
 <template>
-  <div class="container px-4 mx-auto border-2 border-red-500">
-    <h2>HomeView</h2>
+  <div class="container px-4 mx-auto">
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-4">
-      <div class="lg:col-span-2 lg:order-1 order-2 border-2 border-orange-500">
+      <div class="lg:col-span-2 lg:order-1 order-2 p-2 border-2 border-gray-400">
         <SearchInput v-model="searchQuery" />
         <CountryList :filteredCountries="filteredCountries" />
       </div>
-      <div class="lg:col-span-3 lg:order-2 order-1 border-2 border-green-500">
-        <RandomCountryWidget />
+      <div class="lg:col-span-3 lg:order-2 order-1 p-2 border-2 border-gray-400">
+        <RandomCountryWidget :randomCountries="randomCountries" />
       </div>
     </div>
   </div>
-
-  <!-- <button @click="goToAbout">Go to About</button> -->
 </template>

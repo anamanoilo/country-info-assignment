@@ -80,7 +80,7 @@ async function fetchCountries(): Promise<Country[]> {
       {{ error }}
   </div>
   <div v-else class="grid grid-cols-1 lg:grid-cols-5 gap-4">
-    <div class="lg:col-span-2 lg:order-1 order-2 p-2 border-2 rounded-md border-gray-200">
+  <div class="lg:col-span-2 lg:order-1 order-2">
       <SearchInput v-model="searchQuery" />
       <CountryList :filteredCountries="filteredCountries" />
     </div>

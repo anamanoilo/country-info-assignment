@@ -1,7 +1,58 @@
 # Vue.js engineer test assessment - Country Info
 
-The application has few simple features:
+## Run project
 
-1. Allows users to search for countries
-2. Show 3 random countries and details about their next holiday
-3. Show details about the holidays in the selected country by selected year
+Install dependecies:
+
+```
+npm install
+```
+
+Run locally in development mode:
+
+```
+npm run dev
+```
+
+Build the application for production usage:
+
+```
+npm run build
+```
+
+The result will be in a `dist/` folder which needs to be served by static files web server e.g. [nginx](https://nginx.org/).
+
+
+## App functionality:
+
+
+When you open the client app, the main page will be displayed:
+![Main Page](./md-images/main.png)
+The interface is responsive to different screen sizes:
+<img src="./md-images/main-mobile.png" alt="Main Mobile Page" style="width: 250px; height: auto;" />
+
+
+### 1. Country Search
+- Users can search for countries by name. The application displays a list of countries that match the search query.
+![Country Search](./md-images/country-search.png)
+- Each country name is clickable, allowing users to navigate to the country details page.
+
+### 2. Random Countries Widget
+- The application displays 3 random countries and their next holiday.
+- Shows the country name, holiday name, and holiday date.
+- Each country is clickable, allowing users to navigate to the country details page.
+
+### 3. Country Holidays Details
+- Users can view the list of holidays for a selected country by year.
+![Country Holidays](./md-images/country-page.png)
+- Default view shows holidays for the current year, with options to switch to other years (2020 to 2030).
+![Switch Year Options](./md-images/year-switch.png)
+- Displays holiday name, date, and type (public or private).
+
+## Technologies Used
+- **Vue.js**: Frontend framework for building user interfaces.
+- **Vue Router**: The official router for Vue.js, enabling navigation between views.
+- **TypeScript**: Superset of JavaScript for static type checking.
+- **Tailwind CSS**: Utility-first CSS framework for styling.
+- **Axios**: Promise-based HTTP client for making API requests.
+- **Nager.Date API**: Source for holiday data.

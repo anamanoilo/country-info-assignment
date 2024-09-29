@@ -16,7 +16,7 @@ const error = ref<null | string>(null);
 const holidays = ref<Holiday[]>([]);
 const selectedYear = ref(new Date().getFullYear());
 
-const datesOptions = [
+const yearsOptions = [
   2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030,
 ];
 
@@ -102,10 +102,14 @@ async function fetchHolidays(
       </ul>
       <div class="flex justify-center flex-wrap mt-4 gap-2">
         <button
-          v-for="year in datesOptions"
+          v-for="year in yearsOptions"
           @click="selectedYear = year"
           :key="year"
           class="p-2 border-2 rounded-md border-gray-400 hover:bg-gray-200 hover:border-gray-500 focus:outline-none focus:border-gray-500 focus:bg-gray-300"
+          :class="{
+            'bg-gray-300': selectedYear === year,
+            'border-gray-500': selectedYear === year,
+          }"
         >
           {{ year }}
         </button>

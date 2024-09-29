@@ -15,6 +15,9 @@ const error = ref<string | null>(null);
 const searchQuery = ref('');
 const randomCountries = ref<CountryWidget[]>([]);
 
+//TODO: split fetchData into 2 functions, so that we could display CountryList even if RandomCountryWidgets failed
+
+
 async function fetchData() {
   error.value = null;
   countries.value = [];
@@ -72,13 +75,17 @@ async function fetchCountries(): Promise<Country[]> {
 </script>
 
 <template>
-  <div class="grid grid-cols-1 lg:grid-cols-5 gap-4">
-    <div class="lg:col-span-2 lg:order-1 order-2 p-2 border-2 border-gray-400">
+  <div v-if="loading">Loading...</div>
+  <div v-else-if="error">
+      {{ error }}
+  </div>
+  <div v-else class="grid grid-cols-1 lg:grid-cols-5 gap-4">
+    <div class="lg:col-span-2 lg:order-1 order-2 p-2 border-2 rounded-md border-gray-200">
       <SearchInput v-model="searchQuery" />
       <CountryList :filteredCountries="filteredCountries" />
     </div>
     <div
-      class="lg:col-span-3 lg:order-2 order-1 h-fit p-2 border-2 border-gray-400"
+      class="lg:col-span-3 lg:order-2 order-1 h-fit p-2 border-2 rounded-md border-gray-200"
     >
       <RandomCountryWidget :randomCountries="randomCountries" />
     </div>

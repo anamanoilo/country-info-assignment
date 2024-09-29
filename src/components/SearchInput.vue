@@ -9,7 +9,7 @@ const modelValue = defineModel<string>('modelValue');
       type="text"
       v-model="modelValue"
       placeholder="Search for a country..."
-      class="w-full p-2 border-2 border-gray-300 rounded-md"
+      class="w-full p-2 border-2 border-gray-300 rounded-md hover:border-gray-700 focus:border-gray-500"
     />
   </div>
 </template>

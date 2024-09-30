@@ -1,118 +1,81 @@
 <script setup lang="ts">
+import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { ref, watch, inject } from 'vue';
-import { axiosKey, CountryInfo, Holiday } from '../types';
-import { AxiosError } from 'axios';
-import type { AxiosInstance } from 'axios';
-
-const axios = inject(axiosKey) as AxiosInstance;
+import { CountryInfo, Holiday } from '../types';
+import { useFetch } from '../composables/useFetch';
 
 const route = useRoute();
 const countryCode = route.params.countryCode;
-
-const loading = ref(false);
-const country = ref<CountryInfo | null>(null);
-const error = ref<null | string>(null);
-const holidays = ref<Holiday[]>([]);
 const selectedYear = ref(new Date().getFullYear());
+const fetchCountryInfoUrl = computed(() => `/CountryInfo/${countryCode}`);
+const fetchHolidaysUrl = computed(
+  () => `/PublicHolidays/${selectedYear.value}/${countryCode}`
+);
 
 const yearsOptions = [
   2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030,
 ];
+const {
+  data: country,
+  error: countryError,
+  loading: loadingCountryInfo,
+} = useFetch<CountryInfo | null>(fetchCountryInfoUrl);
+const {
+  data: holidays,
+  error: holidaysError,
+  loading: loadingHolidays,
+} = useFetch<Holiday[] | null>(fetchHolidaysUrl);
 
-// watch the params of the route to fetch the data again
-watch(() => countryCode as string, getData, { immediate: true });
-
-// watch the click on the year button to fetch holidays for the selected year
-watch(selectedYear, getHolidays);
-
-async function getData(countryCode: string) {
-  error.value = country.value = null;
-  holidays.value = [];
-  loading.value = true;
-
-  try {
-    country.value = await fetchCountryInfo(countryCode);
-    holidays.value = await fetchHolidays(selectedYear.value, countryCode);
-  } catch (err) {
-    if (err instanceof AxiosError) {
-      console.error(err.message);
-      error.value = err.message.toString();
-    } else {
-      console.error('Unknown error:', err);
-    }
-  } finally {
-    loading.value = false;
-  }
-}
-
-async function getHolidays() {
-  error.value = null;
-  holidays.value = [];
-  loading.value = true;
-
-  try {
-    holidays.value = await fetchHolidays(
-      selectedYear.value,
-      countryCode as string,
-    );
-  } catch (err) {
-    if (err instanceof AxiosError) {
-      console.error(err.message);
-      error.value = err.message.toString();
-    } else {
-      console.error('Unknown error:', err);
-    }
-  } finally {
-    loading.value = false;
-  }
-}
-
-async function fetchCountryInfo(countryCode: string): Promise<CountryInfo> {
-  const response = await axios.get(`/CountryInfo/${countryCode}`);
-  return response.data;
-}
-
-async function fetchHolidays(
-  year: number,
-  countryCode: string,
-): Promise<Holiday[]> {
-  const response = await axios.get(`/PublicHolidays/${year}/${countryCode}`);
-  return response.data;
-}
 </script>
 
 <template>
   <div>
-    <div v-if="loading">Loading...</div>
+    <div v-if="loadingCountryInfo">Loading...</div>
 
-    <div v-if="error">
-      {{ error }}
+    <div v-if="countryError" class="text-red-800">
+      {{ countryError }}
     </div>
 
-    <div v-if="country && holidays.length">
+    <div v-if="country">
       <h3 class="font-semibold">{{ country.commonName }}</h3>
       <p>Official name: {{ country.officialName }}</p>
-      <ul class="mt-4 grid gap-2">
-        <li v-for="holiday in holidays" class="p-2 border-2 rounded-md border-gray-400">
-          <p>Holiday: {{ holiday.name }}</p>
-          <p>Date 📅: {{ holiday.date }}</p>
-          <div v-for="type in holiday.types">§{{ type }}</div>
-        </li>
-      </ul>
-      <div class="flex justify-center flex-wrap mt-4 gap-2">
-        <button
-          v-for="year in yearsOptions"
-          @click="selectedYear = year"
-          :key="year"
-          class="p-2 border-2 rounded-md border-gray-400 hover:bg-gray-200 hover:border-gray-500 focus:outline-none focus:border-gray-500 focus:bg-gray-300"
-          :class="{
-            'bg-gray-300': selectedYear === year,
-            'border-gray-500': selectedYear === year,
-          }"
-        >
-          {{ year }}
-        </button>
+
+      <div class="mt-4">
+        <p v-if="loadingHolidays">
+          Loading holidays for {{ selectedYear }} year...
+        </p>
+
+        <ul v-if="holidays?.length" class="grid gap-2">
+          <li
+            v-for="holiday in holidays"
+            class="p-2 border-2 rounded-md border-gray-400"
+          >
+            <p>Holiday: {{ holiday.name }}</p>
+            <p>Date 📅: {{ holiday.date }}</p>
+            <p>
+              Types: <span v-for="type in holiday.types">{{ type }}</span>
+            </p>
+          </li>
+        </ul>
+
+        <p v-if="holidays?.length === 0">No holidays found for this year</p>
+
+        <p v-if="holidaysError" class="text-red-800">{{ holidaysError }}</p>
+
+        <div v-if="holidays" class="flex justify-center flex-wrap mt-4 gap-2">
+          <button
+            v-for="year in yearsOptions"
+            @click="selectedYear = year"
+            :key="year"
+            class="p-2 border-2 rounded-md border-gray-400 hover:bg-gray-200 hover:border-gray-500 focus:outline-none focus:border-gray-500 focus:bg-gray-300"
+            :class="{
+              'bg-gray-300': selectedYear === year,
+              'border-gray-500': selectedYear === year,
+            }"
+          >
+            {{ year }}
+          </button>
+        </div>
       </div>
     </div>
   </div>

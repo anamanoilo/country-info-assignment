@@ -29,7 +29,7 @@ The result will be in a `dist/` folder which needs to be served by static files 
 When you open the client app, the main page will be displayed:
 ![Main Page](./md-images/main.png)
 The interface is responsive to different screen sizes:
-<img src="./md-images/main-mobile.png" alt="Main Mobile Page" style="width: 250px; height: auto;" />
+![Main Mobile Page](./md-images/main-mobile.png)
 
 
 ### 1. Country Search

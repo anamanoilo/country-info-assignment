@@ -1,10 +1,9 @@
 <script setup lang="ts">
 const modelValue = defineModel<string>('modelValue');
-
 </script>
 
 <template>
-      <div class="mb-4">
+  <div class="mb-4">
     <input
       type="text"
       v-model="modelValue"

@@ -1,10 +1,9 @@
-// import { inject } from 'vue';
+import axios from 'axios';
 
-// const axios = inject('axios');
+export default function () {
+  const axiosInstance = axios.create({
+    baseURL: import.meta.env.VITE_API_URL + '/api/v3',
+  });
 
-// import type { AxiosInstance } from 'axios';
-
-// export async function fetchCountryInfo(countryCode: string) {
-//   const response = await axios.get(`/CountryInfo/${countryCode}`);
-//   return response.data;
-// }
+  return axiosInstance;
+}

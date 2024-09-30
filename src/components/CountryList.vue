@@ -20,5 +20,6 @@ defineProps<{
           
         </li>
   </ul>
+  <p v-else>No countries match the search</p>
 </div>
 </template>

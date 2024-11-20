@@ -3,6 +3,9 @@ import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { CountryInfo, Holiday } from '../types';
 import { useFetch } from '../composables/useFetch';
+import { generateYearsList } from '../utils/generateYearsList';
+import { Year } from '../utils/constants';
+
 
 const route = useRoute();
 const countryCode = route.params.countryCode;
@@ -12,9 +15,7 @@ const fetchHolidaysUrl = computed(
   () => `/PublicHolidays/${selectedYear.value}/${countryCode}`
 );
 
-const yearsOptions = [
-  2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030,
-];
+const yearsOptions = generateYearsList(Year.START, Year.END);
 const {
   data: country,
   error: countryError,

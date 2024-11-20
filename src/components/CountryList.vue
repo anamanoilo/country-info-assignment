@@ -14,9 +14,9 @@ defineProps<{
      <li
           v-for="country in filteredCountries"
           :key="country.countryCode"
-          class="p-2 border-2 rounded-md border-gray-500"
+          class=" rounded-md bg-white"
         >
-        <RouterLink :to="`/country/${country.countryCode.toLowerCase()}`" class="block hover:underline">{{ country.name }}</RouterLink>
+        <RouterLink :to="`/country/${country.countryCode.toLowerCase()}`" class="block p-2 rounded-md hover:bg-indigo-300">{{ country.name }}</RouterLink>
           
         </li>
   </ul>

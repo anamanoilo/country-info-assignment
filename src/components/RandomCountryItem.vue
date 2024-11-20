@@ -21,7 +21,7 @@ const {
 <template>
   <RouterLink
     :to="`/country/${randomCountry.countryCode.toLowerCase()}`"
-    class="flex h-full p-2 border-2 rounded-md border-gray-500 hover:underline"
+    class="flex h-full p-2 rounded-md bg-indigo-200 hover:bg-indigo-300"
   >
     <p v-if="loadingCountries" class="content-center">
       Loading Random Country...

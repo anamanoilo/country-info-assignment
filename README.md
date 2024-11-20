@@ -1,4 +1,6 @@
-# Vue.js engineer test assessment - Country Info
+# Country Info App
+
+live page: https://country-info-assignment.vercel.app
 
 ## Run project
 

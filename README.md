@@ -1,6 +1,6 @@
 # Country Info App
 
-live page: https://country-info-assignment.vercel.app
+live page: https://country-info-ana.vercel.app
 
 ## Run project
 
